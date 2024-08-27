@@ -1,0 +1,18 @@
+use('books_db')
+
+db.createCollection('favorite_books', {
+    validator: {
+        $jsonSchema: {
+            bsonType: 'object',
+            required: ['userId','bookId'],
+            properties: {
+                userId: {
+                    bsonType: 'objectId',
+                },
+                bookId: {
+                    bsonType: 'objectId',
+                },
+            }
+        }
+    }
+})

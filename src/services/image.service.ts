@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getRandomImage = async (category="books") => {
+export const getRandomImage = async (category="abstract") => {
   try {
     const response = await axios.get(
       "https://api.api-ninjas.com/v1/randomimage",

@@ -4,6 +4,8 @@ import { errorHandler } from "./middlewares/error.handler";
 import { connectRedisClient } from "./config/redis.config";
 import { connectMongoDB } from "./config/mongo.config";
 import { BookRouter } from './routes/book.route'
+import { UserRouter } from "./routes/user.route";
+import { FavoriteBooksRouter } from "./routes/favoriteBooks.route";
 
 dotenv.config();
 
@@ -20,7 +22,9 @@ app.get("/", (req: Request, res: Response) => {
 
 const router = express.Router();
 
-app.use("/v1/api", BookRouter(router)); 
+app.use("/v1/api", BookRouter(router));
+app.use("/v1/api", UserRouter(router));
+app.use("/v1/api", FavoriteBooksRouter(router));
 
 app.listen(port, async() => {
   await connectRedisClient();

@@ -31,13 +31,13 @@ export const BookRouter = (router: Router) => {
 
     router.delete("/books/:id", async (req, res) => {
       try {
-        const book = await BookModel.deleteOne({
+        const { deletedCount } = await BookModel.deleteOne({
           _id: {
             $eq: req.params.id,
           },
         });
         return res.json({
-          resultsDeleted: book.deletedCount,
+          deletedCount,
         });
       } catch (error) {
         res.status(500).json(error);
@@ -61,7 +61,7 @@ export const BookRouter = (router: Router) => {
 
       const { modifiedCount } = await BookModel.updateOne({
         title: {
-          $eq: String(existBook.title),
+          $eq: existBook.title,
         },
         ...newBook,
       });

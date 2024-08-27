@@ -17,7 +17,7 @@ const BookSchema = new Schema({
     type: String,
     required: true,
   },
-  imageURL: {
+  imageSrc: {
     type: String,
   },
   year: {

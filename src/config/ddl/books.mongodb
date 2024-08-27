@@ -1,0 +1,42 @@
+use('books_db')
+
+db.createCollection('books', {
+    validator: {
+        $jsonSchema: {
+            bsonType: 'object',
+            required: ['author','country','language', 'pages','title','year'],
+            properties: {
+                author: {
+                    bsonType: 'string',
+                    pattern: '[a-zA-Z .,?!&$%@#*()_]',
+                },
+                country: {
+                    bsonType: 'string',
+                    pattern: '[a-zA-Z ]',
+                },
+                dateCreated: {
+                    bsonType: 'date',
+                },
+                imageSrc:{
+                    bsonType: 'string',
+                },
+                language: {
+                    bsonType: 'string',
+                    pattern: '[a-zA-Z ]', 
+                },
+                pages: {
+                    bsonType: 'number',
+                    minimum: 7,
+                    maximum: 9000000,
+                },
+                title: {
+                    bsonType: 'string',
+                    pattern:'[a-zA-Z &.,?!$*()%@#_]',
+                },
+                year: {
+                    bsonType: 'number',
+                },
+            }
+        }
+    }
+})
