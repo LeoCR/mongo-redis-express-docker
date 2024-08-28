@@ -1,5 +1,6 @@
 import { Router } from "express";
 import UserModel from "../models/user.model";
+import { redisClient } from "../utils/redis.client";
 
 export const UserRouter = (router: Router) => {
   router.post("/users", async (request, resp) => {
@@ -16,14 +17,24 @@ export const UserRouter = (router: Router) => {
 
   router.get("/users", async (req, res) => {
     try {
-      const users = await UserModel.find({
-        email: {
-          $ne: null,
-        },
-      });
-      return res.json({
-        users,
-      });
+      const cachedData = await redisClient.get(`users`);
+
+      if (cachedData) {
+        return res.json({
+          users: JSON.parse(cachedData),
+        });
+      }
+      else{
+        const users = await UserModel.find({
+          email: {
+            $ne: null,
+          },
+        });
+        redisClient.setEx(`users`, 3600, JSON.stringify(users));
+        return res.json({
+          users,
+        });
+      }
     } catch (error) {
       res.status(500).json(error);
     }
@@ -53,7 +64,9 @@ export const UserRouter = (router: Router) => {
         })
         .status(404);
     }
-    const newUser = {};
+    const newUser = {
+      updatedAt: Date.now()
+    };
 
     for (const [key, value] of Object.entries(req.body)) {
       Object.assign(newUser, {

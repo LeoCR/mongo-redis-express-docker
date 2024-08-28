@@ -14,7 +14,7 @@ db.createCollection('books', {
                     bsonType: 'string',
                     pattern: '[a-zA-Z ]',
                 },
-                dateCreated: {
+                createdAt: {
                     bsonType: 'date',
                 },
                 imageSrc:{
@@ -32,6 +32,9 @@ db.createCollection('books', {
                 title: {
                     bsonType: 'string',
                     pattern:'[a-zA-Z &.,?!$*()%@#_]',
+                },
+                updatedAt:{
+                    bsonType: 'date'
                 },
                 year: {
                     bsonType: 'number',

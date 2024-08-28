@@ -6,7 +6,7 @@ db.createCollection('users', {
             bsonType: 'object',
             required: ['email','password','fullName'],
             properties: {
-                dateCreated: {
+                createdAt: {
                     bsonType: 'date',
                 },
                 email: {
@@ -20,6 +20,9 @@ db.createCollection('users', {
                 password: {
                     bsonType: 'string',
                     pattern: '[a-zA-Z .,?!&$%@#*()_]{12,}',
+                },
+                updatedAt:{
+                    bsonType: 'date'
                 },
             }
         }

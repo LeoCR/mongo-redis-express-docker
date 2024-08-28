@@ -6,10 +6,16 @@ db.createCollection('favorite_books', {
             bsonType: 'object',
             required: ['userId','bookId'],
             properties: {
-                userId: {
+                bookId: {
                     bsonType: 'objectId',
                 },
-                bookId: {
+                createdAt: {
+                    bsonType: 'date',
+                },
+                updatedAt:{
+                    bsonType: 'date'
+                },
+                userId: {
                     bsonType: 'objectId',
                 },
             }

@@ -1,11 +1,19 @@
 import {Schema, model} from "mongoose";
 
 const BookSchema = new Schema({
-  title: {
+  author: {
     type: String,
     required: true,
   },
-  author: {
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  country: {
+    type: String,
+    required: true,
+  },
+  title: {
     type: String,
     required: true,
   },
@@ -13,22 +21,21 @@ const BookSchema = new Schema({
     type: String,
     required: true,
   },
-  country: {
-    type: String,
-    required: true,
-  },
   imageSrc: {
     type: String,
   },
-  year: {
-    type: Number,
-    required: true,
+  updatedAt: {
+    type: Date,
+    default: Date.now,
   },
   pages: {
     type: Number,
     required: true,
   },
-  dateCreated: { type: Date, default: Date.now },
+  year: {
+    type: Number,
+    required: true,
+  },
 });
 
 const BookModel = model("Book", BookSchema);
